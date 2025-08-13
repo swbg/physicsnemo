@@ -830,13 +830,13 @@ def main(cfg: DictConfig) -> None:
                         epoch=cur_nimg,
                     )
 
-            # Retain only the recent n checkpoints, if desired
-            if dist.rank == 0 and cfg.training.io.save_n_recent_checkpoints > 0:
-                for suffix in [".mdlus", ".pt"]:
-                    ckpts = checkpoint_list(checkpoint_dir, suffix=suffix)
-                    while len(ckpts) > cfg.training.io.save_n_recent_checkpoints:
-                        os.remove(os.path.join(checkpoint_dir, ckpts[0]))
-                        ckpts = ckpts[1:]
+                    # Retain only the recent n checkpoints, if desired
+                    if cfg.training.io.save_n_recent_checkpoints > 0:
+                        for suffix in [".mdlus", ".pt"]:
+                            ckpts = checkpoint_list(checkpoint_dir, suffix=suffix)
+                            while len(ckpts) > cfg.training.io.save_n_recent_checkpoints:
+                                os.remove(os.path.join(checkpoint_dir, ckpts[0]))
+                                ckpts = ckpts[1:]
 
     # Done.
     logger0.info("Training Completed.")
