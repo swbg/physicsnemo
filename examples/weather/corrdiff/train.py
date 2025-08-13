@@ -831,7 +831,7 @@ def main(cfg: DictConfig) -> None:
                     )
 
             # Retain only the recent n checkpoints, if desired
-            if cfg.training.io.save_n_recent_checkpoints > 0:
+            if dist.rank == 0 and cfg.training.io.save_n_recent_checkpoints > 0:
                 for suffix in [".mdlus", ".pt"]:
                     ckpts = checkpoint_list(checkpoint_dir, suffix=suffix)
                     while len(ckpts) > cfg.training.io.save_n_recent_checkpoints:
