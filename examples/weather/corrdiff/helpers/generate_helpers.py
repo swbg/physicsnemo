@@ -106,10 +106,10 @@ def save_images(
                 channel_name, time_index, idx, image_out2[0, channel_idx]
             )
 
-        input_channel_info = dataset.input_channels()
-        for channel_idx in range(len(input_channel_info)):
-            info = input_channel_info[channel_idx]
-            channel_name = info.name + info.level
-            writer.write_input(channel_name, time_index, image_lr2[0, channel_idx])
-            if channel_idx == image_lr2.shape[1] - 1:
-                break
+    input_channel_info = dataset.input_channels()
+    for channel_idx in range(len(input_channel_info)):
+        info = input_channel_info[channel_idx]
+        channel_name = info.name + info.level
+        writer.write_input(channel_name, time_index, image_lr2[0, channel_idx])
+        if channel_idx == image_lr2.shape[1] - 1:
+            break
